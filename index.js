@@ -33,12 +33,13 @@ client.on("ready", () => {
 })
 
 client.on("messageCreate", (message) => {
-  while (message.content.length > 0) {
-    messages.push(message.content.substring(0, Math.min(20, message.content.length)))
-    message.content = message.content.substring(Math.min(20, message.content.length))
+  let msg = message.author.username.substring(0,5) + ">"+ message.content 
+  while (msg.length > 0) {
+    messages.push(msg.substring(0, Math.min(20, msg.length)))
+    msg = msg.substring(Math.min(20, msg.length))
   }
 
-  if (messages.length > 6) {
+  while (messages.length > 6) {
     messages.shift()
   }
 

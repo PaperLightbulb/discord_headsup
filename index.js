@@ -38,7 +38,7 @@ client.on("messageCreate", (message) => {
     message.content = message.content.substring(Math.min(20, message.content.length))
   }
 
-  if (messages.length > 5) {
+  if (messages.length > 6) {
     messages.shift()
   }
 

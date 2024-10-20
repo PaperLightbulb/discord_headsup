@@ -15,14 +15,17 @@ app.listen(PORT, () => {
 app.get("/messages", (req, resp) => {
   let messages_as_text = ""
 
-  for (const msg of messages) {
-    messages_as_text = messages_as_text + msg + "\n"
+  for (let msg of messages) {
+    while (msg.length > 0) {
+      
+      messages_as_text = messages_as_text + msg.substring(0, Math.min(20, msg.length)) + "\n"
+      msg = msg.substring(Math.min(20, msg.length))
+      }
   }
 
   resp.send(messages_as_text) 
 })
 
-// Create a new Client with the Guilds intent
 const client = new Client({ intents: [
   GatewayIntentBits.Guilds, 
   GatewayIntentBits.GuildMessages, 
@@ -45,5 +48,4 @@ client.on("messageCreate", (message) => {
 
 let messages = []
 
-// Login with the credentials stored in .env
 client.login(process.env.BOT_TOKEN)

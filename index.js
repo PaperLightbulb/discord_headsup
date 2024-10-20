@@ -1,17 +1,20 @@
-const { Client, Intents } = require("discord.js");
-// The Client and Intents are destructured from discord.js, since it exports an object by default. Read up on destructuring here https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
-const client = new Client({
-  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]
-});
+const dotenv = require('dotenv/config')
+const fs = require('fs')
+const { Client, GatewayIntentBits } = require('discord.js')
+
+// Create a new Client with the Guilds intent
+const client = new Client({ intents: [
+  GatewayIntentBits.Guilds, 
+  GatewayIntentBits.GuildMessages, 
+  GatewayIntentBits.MessageContent
+] })
 
 client.on("ready", () => {
-  console.log("I am ready!");
-});
+  console.log("I am ready!")
+})
 
 client.on("messageCreate", (message) => {
-  if (message.content.startsWith("ping")) {
-    message.channel.send("pong!");
-  }
-});
-
-client.login(process.env.BOT_TOKEN);
+  console.log(message.content)
+})
+// Login with the credentials stored in .env
+client.login(process.env.BOT_TOKEN)

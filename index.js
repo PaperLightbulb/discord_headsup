@@ -16,11 +16,7 @@ app.get("/messages", (req, resp) => {
   let messages_as_text = ""
 
   for (let msg of messages) {
-    while (msg.length > 0) {
-      
-      messages_as_text = messages_as_text + msg.substring(0, Math.min(20, msg.length)) + "\n"
-      msg = msg.substring(Math.min(20, msg.length))
-      }
+    messages_as_text = messages_as_text + msg + "\n"
   }
 
   resp.send(messages_as_text) 
@@ -37,7 +33,10 @@ client.on("ready", () => {
 })
 
 client.on("messageCreate", (message) => {
-  messages.push(message.content)
+  while (message.content.length > 0) {
+    messages.push(message.content.substring(0, Math.min(20, message.content.length)))
+    message.content = message.content.substring(Math.min(20, message.content.length))
+  }
 
   if (messages.length > 5) {
     messages.shift()

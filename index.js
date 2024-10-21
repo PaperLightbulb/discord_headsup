@@ -2,6 +2,7 @@ const dotenv = require('dotenv/config')
 const fs = require('fs')
 const { Client, GatewayIntentBits } = require('discord.js')
 const express = require('express')
+const basicAuth = require('express-basic-auth')
 
 const app = express ()
 app.use(express.json())
@@ -12,13 +13,8 @@ app.listen(PORT, () => {
   console.log("REST on ", PORT);
 })
 
-const users = {
-  process.env.USERNAME: process.env.PASSWORD
-}
-
-app.use('/messages', basicAuth({
-  users: users,
-  challenge: true // Prompt for credentials
+app.use(basicAuth({
+	users: { "Arbor": process.env.PASSWORD }
 }))
 
 app.get("/messages", (req, resp) => {

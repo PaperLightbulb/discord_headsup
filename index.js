@@ -12,6 +12,15 @@ app.listen(PORT, () => {
   console.log("REST on ", PORT);
 })
 
+const users = {
+  process.env.USERNAME: process.env.PASSWORD
+}
+
+app.use('/messages', basicAuth({
+  users: users,
+  challenge: true // Prompt for credentials
+}))
+
 app.get("/messages", (req, resp) => {
   let messages_as_text = ""
 

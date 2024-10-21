@@ -15,7 +15,7 @@
 const char* ssid = "UofM-IoT";
 const char* password = "phoebads96fidalgo";
 
-String serverName = "https://728946296dbbf904e251141ae096acd8.serveo.net";
+String serverName = "https://leading-jointly-bluejay.ngrok-free.app";
 
 unsigned long last = 0;
 
@@ -70,6 +70,10 @@ void loop()
 
       String serverPath = serverName + "/messages";
       http.begin(serverPath.c_str());
+
+      http.setAuthorization("Arbor", "TapeBl0t");
+
+      http.setUserAgent("password");
       
       int httpResponseCode = http.GET();
       

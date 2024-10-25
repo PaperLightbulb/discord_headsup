@@ -19,10 +19,12 @@ String serverName = "https://leading-jointly-bluejay.ngrok-free.app";
 
 unsigned long last = 0;
 
-unsigned long timer = 5000;
+unsigned long timer = 500;
 
 GxIO_Class io(SPI,  EPD_CS, EPD_DC,  EPD_RSET);
 GxEPD_Class display(io, EPD_RSET, EPD_BUSY);
+
+String old = "";
 
 void prn(String s) {
   display.fillScreen(GxEPD_WHITE);
@@ -81,8 +83,11 @@ void loop()
         Serial.print("HTTP Response code: ");
         Serial.println(httpResponseCode);
         String payload = http.getString();
-        Serial.println(payload);
-        prn(payload);
+        if (old != payload) {
+          Serial.println(payload);
+          prn(payload);
+        }
+        old = payload;
       }
       else {
         Serial.print("Error code: ");

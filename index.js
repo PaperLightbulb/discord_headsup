@@ -18,7 +18,7 @@ app.use(basicAuth({
 }))
 
 app.get("/messages", (req, resp) => {
-  resp.send(message) 
+  resp.send(msg) 
 })
 
 const client = new Client({ intents: [
@@ -32,9 +32,16 @@ client.on("ready", () => {
 })
 
 client.on("messageCreate", (message) => {
-  message = message.author.username + "|" + mess
+  client.channels.fetch(message.channelId)
+    .then(channel => {
+    msg = message.author.username + "|" + channel.name + ">" + message.content
+
+    msg = msg.replace(new RegExp(`.{${22}}`, 'g'), '$&' + "\n")
+  })
+
+  console.log(message)
 })
 
-let message = ""
+let msg = ""
 
 client.login(process.env.BOT_TOKEN)

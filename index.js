@@ -34,9 +34,7 @@ client.on("ready", () => {
 client.on("messageCreate", (message) => {
   client.channels.fetch(message.channelId)
     .then(channel => {
-    msg = message.author.username + "|" + channel.name + ">" + message.content
-
-    msg = msg.replace(new RegExp(`.{${22}}`, 'g'), '$&' + "\n")
+    msg = message.author.username + "|" + channel.name + ">\n" + message.content.replace(new RegExp(`.{${22}}`, 'g'), '$&' + "\n")
   })
 
   console.log(message)

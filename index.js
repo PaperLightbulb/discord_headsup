@@ -18,13 +18,7 @@ app.use(basicAuth({
 }))
 
 app.get("/messages", (req, resp) => {
-  let messages_as_text = ""
-
-  for (let msg of messages) {
-    messages_as_text = messages_as_text + msg + "\n"
-  }
-
-  resp.send(messages_as_text) 
+  resp.send(message) 
 })
 
 const client = new Client({ intents: [
@@ -38,19 +32,9 @@ client.on("ready", () => {
 })
 
 client.on("messageCreate", (message) => {
-  let msg = message.author.username.substring(0,5) + ">"+ message.content 
-  while (msg.length > 0) {
-    messages.push(msg.substring(0, Math.min(20, msg.length)))
-    msg = msg.substring(Math.min(20, msg.length))
-  }
-
-  while (messages.length > 6) {
-    messages.shift()
-  }
-
-  console.log(messages)
+  message = message.author.username + "|" + mess
 })
 
-let messages = []
+let message = ""
 
 client.login(process.env.BOT_TOKEN)

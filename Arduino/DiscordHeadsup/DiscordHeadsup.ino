@@ -15,7 +15,7 @@
 const char* ssid = "UofM-IoT";
 const char* password = "phoebads96fidalgo";
 
-String serverName = "https://leading-jointly-bluejay.ngrok-free.app";
+String serverName = "https://f3c2239da5560999c19c6281943539dd.serveo.net";
 
 unsigned long last = 0;
 
